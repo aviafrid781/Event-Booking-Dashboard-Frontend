@@ -33,7 +33,7 @@ export function BookingDetailsPage({ id, onBack, onEdit, onDeleted }: Props) {
   }, [load]);
 
   const totalCost = booking
-    ? booking.event?.price
+    ? booking.event?.price !== undefined
       ? Number(booking.event.price) * booking.seats
       : null
     : null;
