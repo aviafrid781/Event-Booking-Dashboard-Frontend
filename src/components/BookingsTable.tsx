@@ -4,10 +4,11 @@ interface Props {
   bookings: Booking[];
   onView: (booking: Booking) => void;
   onEdit: (booking: Booking) => void;
+  onDelete: (booking: Booking) => void;
 }
 
 /** Table of bookings with per-row view / edit / delete actions. */
-export function BookingsTable({ bookings, onView, onEdit }: Props) {
+export function BookingsTable({ bookings, onView, onEdit, onDelete }: Props) {
   if (bookings.length === 0) {
     return <p className="muted">No bookings match the current filters.</p>;
   }
@@ -65,7 +66,14 @@ export function BookingsTable({ bookings, onView, onEdit }: Props) {
                 >
                   ✏️
                 </button>
-               
+                <button
+                  className="icon-btn"
+                  title="Delete booking"
+                  aria-label="Delete booking"
+                  onClick={() => onDelete(b)}
+                >
+                  🗑️
+                </button>
               </div>
             </td>
           </tr>

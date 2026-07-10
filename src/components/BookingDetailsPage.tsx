@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getBooking } from '../api';
+import { deleteBooking, getBooking } from '../api';
 import type { Booking } from '../types';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 /** Read-only details for a single booking, with edit/delete actions. */
-export function BookingDetailsPage({ id, onBack, onEdit }: Props) {
+export function BookingDetailsPage({ id, onBack, onEdit, onDeleted }: Props) {
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -73,6 +73,26 @@ export function BookingDetailsPage({ id, onBack, onEdit }: Props) {
 
           <div className="form-actions">
             <button onClick={() => onEdit(booking)}>✏️ Edit</button>
+            <button
+              className="secondary"
+              onClick={async () => {
+                if (
+                  !window.confirm(
+                    `Delete booking ${booking.reference.slice(0, 8)}… for ${booking.customerName}?`,
+                  )
+                ) {
+                  return;
+                }
+                try {
+                  await deleteBooking(booking.id);
+                  onDeleted();
+                } catch (err) {
+                  setError(err instanceof Error ? err.message : 'Failed to delete booking.');
+                }
+              }}
+            >
+              🗑️ Delete
+            </button>
           </div>
         </div>
       )}
