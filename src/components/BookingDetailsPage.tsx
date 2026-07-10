@@ -31,6 +31,12 @@ export function BookingDetailsPage({ id, onBack, onEdit, onDeleted }: Props) {
     load();
   }, [load]);
 
+  const totalCost = booking
+    ? booking.event?.price
+      ? Number(booking.event.price) * booking.seats
+      : null
+    : null;
+
   return (
     <section>
       <button className="link-back" onClick={onBack}>
@@ -66,6 +72,13 @@ export function BookingDetailsPage({ id, onBack, onEdit, onDeleted }: Props) {
 
             <dt>Seats</dt>
             <dd>{booking.seats}</dd>
+
+            {totalCost !== null && (
+              <>
+                <dt>Total cost</dt>
+                <dd>${totalCost.toFixed(2)}</dd>
+              </>
+            )}
 
             <dt>Created</dt>
             <dd>{new Date(booking.createdAt).toLocaleString()}</dd>

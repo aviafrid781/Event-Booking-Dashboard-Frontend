@@ -14,7 +14,7 @@ export interface Booking {
   id: number;
   reference: string;
   eventId: number;
-  event?: { id: number; name: string };
+  event?: { id: number; name: string; price?: string };
   customerName: string;
   customerEmail: string;
   seats: number;
