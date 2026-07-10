@@ -14,6 +14,8 @@ npm run dev
 The app expects the backend API to be available at the URL configured in `frontend/.env`.
 By default, this is `http://localhost:4000`.
 
+- `VITE_API_TOKEN` must match the backend `API_TOKEN` value for requests to succeed.
+
 ## Run
 
 ```bash
@@ -35,5 +37,6 @@ Open the dashboard in your browser at the URL shown by Vite (usually `http://loc
 ## Notes
 
 - A unique `requestId` is generated client-side for each booking submission.
+- All API requests include a bearer token from `VITE_API_TOKEN`.
 - Deleting a confirmed booking calls `DELETE /bookings/:id` and releases seats.
 - The dashboard uses Dhaka timezone formatting for created timestamps and event dates.

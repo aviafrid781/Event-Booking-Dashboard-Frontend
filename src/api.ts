@@ -10,8 +10,17 @@ import type {
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const token = import.meta.env.VITE_API_TOKEN ?? '';
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     ...init,
   });
 
