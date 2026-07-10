@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { deleteBooking, getBooking } from '../api';
+import { formatDhakaDateTime } from '../utils/date';
 import type { Booking } from '../types';
 
 interface Props {
@@ -81,7 +82,7 @@ export function BookingDetailsPage({ id, onBack, onEdit, onDeleted }: Props) {
             )}
 
             <dt>Created</dt>
-            <dd>{new Date(booking.createdAt).toLocaleString()}</dd>
+            <dd>{formatDhakaDateTime(booking.createdAt)}</dd>
           </dl>
 
           <div className="form-actions">

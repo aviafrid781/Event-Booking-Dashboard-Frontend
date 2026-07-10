@@ -1,3 +1,4 @@
+import { formatDhakaDate } from '../utils/date';
 import type { EventDto } from '../types';
 
 interface Props {
@@ -5,12 +6,7 @@ interface Props {
 }
 
 function formatDate(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
+  return formatDhakaDate(iso);
 }
 
 /** Overview of events with their live remaining-seat counts (GET /events). */
